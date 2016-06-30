@@ -10,7 +10,3 @@ RUN apt-get update && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) opcache mysql pdo_mysql intl mbstring bz2 gd exif sockets sysvsem sysvshm sysvmsg wddx shmop calendar dom xsl soap xmlrpc && \
     rm -rf /var/lib/apt/lists/*
-
-    COPY entrypoint.sh /
-
-    ENTRYPOINT ["/entrypoint.sh"]
