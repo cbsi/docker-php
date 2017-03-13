@@ -16,7 +16,7 @@ RUN apt-get update && \
     yes | pecl install imagick igbinary-2.0.1 && \
 
 	# Enable above pecl extensions
-    docker-php-ext-enable memcached imagick apcu xdebug igbinary && \
+    docker-php-ext-enable memcached imagick apcu igbinary && \
 
     # Install gd extension
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
