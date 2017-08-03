@@ -1,10 +1,12 @@
 FROM php:7.0-fpm
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget unzip zlib1g-dev libmagickwand-dev  libmemcached11 libmemcached-dev  libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libmcrypt-dev libxslt1-dev libicu-dev && rm -rf /var/lib/apt/lists/* && \
-
-    # Install libmemcached
-#    wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz && tar xvzf libmemcached-1.0.18.tar.gz && cd libmemcached-1.0.18 && ./configure --disable-sasl && make && make install && cd .. && rm -rf libmemcached-* && \
+RUN echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list && \
+    wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - && \
+    echo newrelic-php5 newrelic-php5/application-name string "Gamespot-Dev" | debconf-set-selections && \
+    echo newrelic-php5 newrelic-php5/license-key string "908d2fc487bec7ec6c682dfa0aedd1c0fb327cee" | debconf-set-selections && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends wget unzip zlib1g-dev libmagickwand-dev  libmemcached11 libmemcached-dev  libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libmcrypt-dev libxslt1-dev libicu-dev newrelic-php5 && rm -rf /var/lib/apt/lists/* && \
+    NR_INSTALL_SILENT=1 NR_INSTALL_KEY=908d2fc487bec7ec6c682dfa0aedd1c0fb327cee newrelic-install install
 
     # Install pecl memcached
     echo "no --disable-memcached-sasl" | pecl install memcached-3.0.3 && \
