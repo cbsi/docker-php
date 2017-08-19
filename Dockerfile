@@ -13,7 +13,7 @@ RUN apt-get update && \
     yes | pecl install imagick uuid apcu-4.0.10 raphf-1.1.2 propro-1.0.2 && \
 
 	# Enable above pecl extensions
-    docker-php-ext-enable memcached imagick uuid apcu raphf propro z&& \
+    docker-php-ext-enable memcached imagick uuid apcu raphf propro && \
 
     # Install pecl http (raphf needs to be installed already)
     yes | pecl install pecl_http-2.5.5 && docker-php-ext-enable http && \
