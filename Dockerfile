@@ -12,6 +12,9 @@ RUN apt-get update && \
     # Install other pecl
     yes | pecl install imagick uuid apcu-4.0.10 raphf-1.1.2 propro-1.0.2 && \
 
+     # Install patched xdebug
+    wget https://github.com/SteveEasley/xdebug/archive/rfc7239.zip -O /tmp/xdebug.zip && cd /tmp && unzip xdebug.zip && cd xdebug-rfc7239 && phpize && ./configure --enable-xdebug && make && cp modules/xdebug.so $(php -r 'echo ini_get("extension_dir");') && cd / && rm -rf /tmp/xdebug* && \
+
 	# Enable above pecl extensions
     docker-php-ext-enable memcached imagick uuid apcu raphf propro && \
 
