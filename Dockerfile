@@ -21,4 +21,4 @@ RUN apt-get -qq update && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
 
     # Install other extensions
-    docker-php-ext-install -j$(nproc) opcache mysql mysqli pdo pdo_mysql intl mbstring bz2 gd exif sockets sysvsem sysvshm sysvmsg wddx shmop calendar dom xsl soap xmlrpc pcntl
+    docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql intl mbstring bz2 gd exif sockets sysvsem sysvshm sysvmsg wddx shmop calendar dom xsl soap xmlrpc pcntl
