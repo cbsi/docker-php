@@ -1,4 +1,8 @@
+FROM magnetikonline/mozjpegdeb:latest AS mozjpeg
+
 FROM php:7.0-fpm
+
+COPY --from=mozjpeg /root/build/mozjpeg-3.3.1/build/mozjpeg_3.3.1-1_amd64.deb /root
 
 RUN apt-get -qq update && \
     apt-get install -y --no-install-recommends wget && \
@@ -15,6 +19,6 @@ RUN apt-get -qq update && \
     # Install gd extension
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ && \
     # Install other extensions
-    docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql intl mbstring bz2 gd exif sockets sysvsem sysvshm sysvmsg wddx shmop calendar dom xsl soap xmlrpc pcntl
+    docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql intl mbstring bz2 gd exif sockets sysvsem sysvshm sysvmsg wddx shmop calendar dom xsl soap xmlrpc pcntl 
 
-
+RUN dpkg -i /root/mozjpeg_3.3.1-1_amd64.deb && rm /root/mozjpeg_3.3.1-1_amd64.deb
